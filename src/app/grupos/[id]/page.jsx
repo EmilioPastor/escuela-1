@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import Grupo from "@/components/Grupos/Item";
 import { Suspense } from "react";
-const prisma = new PrismaClient()
+
 
 async function PaginaGrupo({ params, searchParams }) {
     const { id } = await params
@@ -21,25 +21,6 @@ async function PaginaGrupo({ params, searchParams }) {
 }
 
 export default PaginaGrupo;
-
-// ----------------  Componentes de servidor --------------
-
-async function Grupo({ id }) {
-    const grupo = await prisma.grupo.findUnique({
-        where: {
-            id: +id
-        }
-    })
-    //console.log(grupo);
-
-    return (
-        <div>
-            <p> {grupo.nombre} </p>
-            <p> {grupo.tutor} </p>
-            <p> {grupo.aula} </p>
-        </div>
-    );
-}
 
 
 function Skeleton() {

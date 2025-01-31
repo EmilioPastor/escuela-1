@@ -1,8 +1,7 @@
 'use server'
-import { PrismaClient } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 
-const prisma = new PrismaClient()
+import prisma from '@/lib/prisma'
 
 
 
@@ -73,12 +72,16 @@ export async function insertarEstudiante(formData) {
     const fecha_nacimiento = new Date(formData.get('fecha_nacimiento'))
     const foto = formData.get('foto')
     const tutor_legal = formData.get('tutor_legal')
+
+    const grupoId = Number(formData.get('grupoId'))
+
     await prisma.estudiante.create({
         data: {
             nombre: nombre,
             fecha_nacimiento: fecha_nacimiento,
             foto: foto,
             tutor_legal: tutor_legal,
+            grupoId: grupoId,
         }
     })
 

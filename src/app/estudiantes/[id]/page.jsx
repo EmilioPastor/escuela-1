@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import Estudiante from "@/components/Estudiantes/Item";
 import { Suspense } from "react";
-const prisma = new PrismaClient()
+
 
 async function PaginaEstudiante({ params, searchParams }) {
     const { id } = await params
@@ -22,25 +22,6 @@ async function PaginaEstudiante({ params, searchParams }) {
 
 export default PaginaEstudiante;
 
-// ----------------  Componentes de servidor --------------
-
-async function Estudiante({ id }) {
-    const estudiante = await prisma.estudiante.findUnique({
-        where: {
-            id: +id
-        }
-    })
-    //console.log(estudiante);
-
-    return (
-        <div>
-            <p><img src={estudiante.foto} /></p>
-            <p> {estudiante.nombre} </p>
-            <p> {estudiante.fecha_nacimiento.toLocaleDateString()} </p>
-            <p> {estudiante.tutor_legal} </p>
-        </div>
-    );
-}
 
 
 function Skeleton() {
