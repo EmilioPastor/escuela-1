@@ -1,5 +1,5 @@
 import Modal from "@/components/Modal";
-import { obtenerAsignaturas } from "@/lib/data";
+import { obtenerAsignaturas, obtenerEstudiantes } from "@/lib/data";
 import AsignaturaEliminar from "./Eliminar";
 import AsignaturaModificar from "./Modificar";
 import AsignaturaInsertar from "./Insertar";
@@ -7,12 +7,13 @@ import Link from "next/link";
 
 export default async function Asignaturas() {
     const asignaturas = await obtenerAsignaturas()
+    const estudiantes = await obtenerEstudiantes()
     //console.log(asignaturas);
     return (
         <div>
 
             <Modal openElement={<p className="inline border-2 border-black">Insertar asignatura</p>}>
-                <AsignaturaInsertar />
+                <AsignaturaInsertar estudiantes={estudiantes} />
             </Modal>
 
 

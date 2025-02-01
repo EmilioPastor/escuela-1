@@ -98,6 +98,8 @@ export async function modificarEstudiante(formData) {
     const foto = formData.get('foto')
     const tutor_legal = formData.get('tutor_legal')
 
+    const grupoId = Number(formData.get('grupoId'))
+
     await prisma.estudiante.update({
         where: {
             id: id
@@ -107,6 +109,7 @@ export async function modificarEstudiante(formData) {
             fecha_nacimiento: fecha_nacimiento,
             foto: foto,
             tutor_legal: tutor_legal,
+            grupoId: grupoId,
         }
     })
 

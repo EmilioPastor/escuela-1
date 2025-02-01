@@ -1,6 +1,6 @@
 import { insertarEstudiante } from "@/lib/actions";
 
-function EstudianteInsertar() {
+function EstudianteInsertar({ grupos }) {
     return (
         <form action={insertarEstudiante}>
             <input name="nombre" placeholder="Nombre" />
@@ -8,7 +8,17 @@ function EstudianteInsertar() {
             <input name="foto" placeholder="Foto" />
             <input name="tutor_legal" placeholder="Tutor legal" />
 
-            <input type="number" name="grupoId" />
+            <select name="grupoId">
+                {
+                    grupos.map(grupo =>
+                        <option key={grupo.id} value={grupo.id}>
+                            {grupo.nombre}
+                        </option>
+                    )
+                }
+            </select>
+
+
 
             <button className="border-2 border-black" >Insertar estudiante</button>
         </form>

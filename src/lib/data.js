@@ -28,7 +28,11 @@ async function obtenerEstudiantes() {
 
 async function obtenerEstudiante(id) {
     const estudiante = await prisma.estudiante.findUnique({
-        where: { id: +id }
+        where: { id: +id },
+        include: {
+            grupo: true,
+            asignaturas: true,
+        }
     })
     return estudiante
 }

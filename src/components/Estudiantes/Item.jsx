@@ -13,6 +13,7 @@ export default async function Estudiante({ id }) {
             <p> {estudiante.nombre} </p>
             <p> {estudiante.fecha_nacimiento.toLocaleDateString()} </p>
             <p> {estudiante.tutor_legal} </p>
+            <p> {estudiante.grupo?.nombre} </p>
         </div>
     );
 }

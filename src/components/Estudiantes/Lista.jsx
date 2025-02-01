@@ -1,5 +1,5 @@
 import Modal from "@/components/Modal";
-import { obtenerEstudiantes } from "@/lib/data";
+import { obtenerEstudiantes, obtenerGrupos } from "@/lib/data";
 import EstudianteInsertar from "./Insertar";
 import EstudianteEliminar from "./Eliminar";
 import EstudianteModificar from "./Modificar";
@@ -8,12 +8,14 @@ import Link from "next/link";
 
 export default async function Estudiantes() {
     const estudiantes = await obtenerEstudiantes()
+    const grupos = await obtenerGrupos()
+
     console.log(estudiantes);
     return (
         <div>
 
             <Modal openElement={<p className="inline border-2 border-black">Insertar estudiante</p>}>
-                <EstudianteInsertar />
+                <EstudianteInsertar grupos={grupos} />
             </Modal>
 
 
@@ -30,7 +32,7 @@ export default async function Estudiantes() {
                         </div>
 
                         <Modal openElement={<p className="inline border-2 border-black">Modificar</p>}>
-                            <EstudianteModificar estudiante={estudiante} />
+                            <EstudianteModificar estudiante={estudiante} grupos={grupos} />
                         </Modal>
 
                         <Modal openElement={<p className="inline border-2 border-black">Eliminar</p>}>
