@@ -9,9 +9,15 @@ export default async function Asignatura({ id }) {
 
     return (
         <div>
-            <p> {asignatura.nombre} </p>
-            <p> {asignatura.profesor} </p>
-            <p> {asignatura.num_horas} </p>
+            <p> Asignatura:  {asignatura.nombre} </p>
+            <p> Profesor: {asignatura.profesor} </p>
+            <p> Numero de Horas: {asignatura.num_horas} </p> Alumnos:  {
+                asignatura.estudiantes.map(estudiante => 
+                    <div key={estudiante.id}>
+                        <p>{estudiante.nombre}</p>
+                    </div>)
+            }
+            
         </div>
     );
 }

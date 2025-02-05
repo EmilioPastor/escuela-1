@@ -134,20 +134,33 @@ export async function eliminarEstudiante(formData) {
 // ------------------------------- ASIGNATURAS -----------------------
 
 
-export async function insertarAsignatura(formData) {
+export async function insertarAsignatura(prevState, formData) {
     const nombre = formData.get('nombre')
     const profesor = formData.get('profesor')
     const num_horas = Number(formData.get('num_horas'))
+
+    const estudiantesIDs = await prisma.estudiante.findMany({
+        select: { id: true }
+    });
+    // console.log(estudiantesIDs);
+
+    const connect = estudiantesIDs.filter(estudiante => formData.get(`estudiante${estudiante.id}`) !== null);
+
+    // console.log(connect);
 
     await prisma.asignatura.create({
         data: {
             nombre: nombre,
             profesor: profesor,
             num_horas: num_horas,
+            estudiantes: {
+                connect: connect
+            }
         }
     })
 
     revalidatePath('/asignaturas')
+    return {success: 'Exito al registrar la asignatura'}
 
 }
 
@@ -159,6 +172,15 @@ export async function modificarAsignatura(formData) {
     const profesor = formData.get('profesor')
     const num_horas = Number(formData.get('num_horas'))
 
+    const estudiantesIDs = await prisma.estudiante.findMany({
+        select: { id: true }
+    });
+    // console.log(estudiantesIDs);
+
+    const connect = estudiantesIDs.filter(estudiante => formData.get(`estudiante${estudiante.id}`) !== null);
+    const disconnect = estudiantesIDs.filter(estudiante => formData.get(`estudiante${estudiante.id}`) === null);
+
+    // console.log(connect);
 
     await prisma.asignatura.update({
         where: {
@@ -168,6 +190,10 @@ export async function modificarAsignatura(formData) {
             nombre: nombre,
             profesor: profesor,
             num_horas: num_horas,
+            estudiantes: {
+                connect: connect,
+                disconnect: disconnect
+            }
         }
     })
 
